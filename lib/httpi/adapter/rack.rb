@@ -88,6 +88,7 @@ module HTTPI
         @request.headers.each do |header, value|
           env["HTTP_#{header.gsub('-', '_').upcase}"] = value
         end
+        env["CONTENT_TYPE"] = @request.headers["Content-Type"]
 
         response = @client.request(method.to_s.upcase, @request.url.to_s,
               { :fatal => true, :input => @request.body.to_s }.merge(env))
